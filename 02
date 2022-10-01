@@ -1,0 +1,23 @@
+import sys
+n=int(input())
+array=[]
+for i in range(n):
+    array.append(list(map(int, input().split())))
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2] #피봇을 중간 값으로 설정
+    lesser_arr, equal_arr, greater_arr = [], [], []
+    for num in arr:
+        if num < pivot:
+            lesser_arr.append(num)
+        elif num > pivot:
+            greater_arr.append(num)
+        else:
+            equal_arr.append(num)
+    array_return=[]
+    array_return=quick_sort(lesser_arr) + equal_arr + quick_sort(greater_arr)
+    return array_return
+array=quick_sort(array)
+for i in array:
+                print(i[0])
