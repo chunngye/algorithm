@@ -1,0 +1,32 @@
+import random
+import math
+maxValue=0
+maxIndex=0
+n,k=map(int, input().split()) #n과 k를 각각 입력받음
+array=[[0 for i in range(2)] for _ in range(n)] #x,y 좌표를 입력받을 2차원 리스트 초기화
+for i in range(n):  #2차원 리스트에 x,y 좌표를 n개씩 입력받음
+  a,b=map(float, input().split())
+  array[i][0]=int(a)
+  array[i][1]=int(b)
+c=[] #센터 인덱스를 저장할 리스트
+c.append(0)
+c.insert(1,random.randint(0,n-1)) #c[1]에 랜덤한 인덱스를 할당
+d=[[0]*(k+1) for _ in range(n)] #각 점에 대해 모든 센터에 대한 거리를 저장할 2차원 리스트
+for j in range(2,k+1):  #c[2]부터 c[k], 즉 2번째 센터부터 k번째 센터를 찾음
+  for i in range(0,n): 
+    if i not in c: #센터가 아닌 각 점에 대해서 
+      for l in range(1,j): #모든 센터에 대한 거리를 저장함
+        a=array[i][0]-array[c[l]][0]
+        b=array[i][1]-array[c[l]][1]
+        d[i][l]=math.sqrt((a*a)+(b*b))
+        #d[0][1]~d[n-1][j-1]
+  for i in range(n):
+    for k in range(j):
+        if maxValue<=d[i][k]:
+            maxValue=d[i][k] #가장 큰 원소의 인덱스가 센터이면 그 다음으로 큰 인덱스를 c[j]에 할당해야 함.
+        
+
+ #c[j]에 배열 D의 가장 큰 원소의 인덱스 할당
+
+for i in range(1,k+1):
+  print(array[c[i]][0], array[c[i]][1])
